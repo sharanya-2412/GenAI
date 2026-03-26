@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Profile Basic Details – User‑Story Quality Review</title>
+    <style>
+        body {font-family: Arial, sans-serif; margin: 20px; line-height: 1.5;}
+        h1 {color: #2E5C6E;}
+        table {border-collapse: collapse; width: 100%; max-width: 800px;}
+        th, td {border: 1px solid #ccc; padding: 8px; text-align: left;}
+        th {background-color: #f2f2f2;}
+        .score {font-weight: bold; color: #2E5C6E;}
+        .summary {margin-top: 20px; font-size: 1.1em;}
+        .recommendations {margin-top: 15px;}
+        .recommendations li {margin-bottom: 8px;}
+    </style>
+</head>
+<body>
+
+<h1>Employee Profile Basic Details – User‑Story Quality Review</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Parameter</th>
+            <th>Description / Assessment</th>
+            <th>Score (out of 20)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Clarity</td>
+            <td>
+                The story is written in very generic language (“I want to employee profile basic details”).  
+                It does not specify *who* the user is (e.g., HR staff, clinician, admin) nor what “basic details” comprise (name, role, credentials, etc.).  
+                Ambiguity makes it hard for the team to share a common understanding.
+            </td>
+            <td class="score">10</td>
+        </tr>
+        <tr>
+            <td>Completeness</td>
+            <td>
+                Acceptance criteria are a single, high‑level sentence that does not define pre‑conditions, data constraints, or success/failure paths.  
+                No mention of required fields, validation rules, or integration points (e.g., with the Master Patient Index or HRIS).  
+                Consequently the story lacks the detail needed for sprint planning.
+            </td>
+            <td class="score">8</td>
+        </tr>
+        <tr>
+            <td>Business Value Alignment</td>
+            <td>
+                The story does not articulate a concrete healthcare benefit.  
+                “Related functionality works as expected” is vague; it does not tie the employee profile to patient safety, compliance (HIPAA/POPIA), staffing analytics, or audit trails—key value drivers in a hospital setting.
+            </td>
+            <td class="score">12</td>
+        </tr>
+        <tr>
+            <td>Testability</td>
+            <td>
+                Because the acceptance criteria lack concrete conditions, QA cannot derive clear test cases.  
+                Questions such as “What fields are mandatory?”, “What error messages are shown for invalid data?” or “How is the profile stored securely?” remain unanswered.
+            </td>
+            <td class="score">9</td>
+        </tr>
+        <tr>
+            <td>Technical Feasibility</td>
+            <td>
+                From a technology standpoint, creating an employee profile screen is feasible within typical EHR/HRIS stacks.  
+                However, the story does not surface constraints (e.g., role‑based access, encryption at rest, HL7/FHIR mapping) that could affect implementation effort.
+            </td>
+            <td class="score">14</td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="summary"><strong>Overall Score: 53 / 100</strong></p>
+
+<h2>Improvement Recommendations</h2>
+<ul class="recommendations">
+    <li><strong>Clarity – Define the actor and scope.</strong> Rewrite the “As a … I want …” clause to specify the user role (e.g., “As a Hospital HR Administrator, I want to create and edit employee basic details…”) and enumerate the exact data elements (full name, professional license, department, contact information, etc.).</li>
+    <li><strong>Completeness – Add concrete acceptance criteria.</strong> Include pre‑conditions (e.g., user must be authenticated with HR role), mandatory fields, validation rules (e.g., license number format), error handling, and post‑conditions (profile persisted, audit log created, notification sent).</li>
+    <li><strong>Business Value Alignment – Tie to regulated outcomes.</strong> Explain how accurate employee profiles support patient safety (e.g., correct clinician attribution), compliance (HIPAA audit trails), and operational efficiency (staff scheduling). Reference relevant standards such as NIST SP 800‑53 or ISO 27799.</li>
+    <li><strong>Testability – Make criteria test‑driven.</strong> Draft test scenarios such as:
+        <ul>
+            <li>Verify that required fields cannot be left blank.</li>
+            <li>Validate that an invalid license number triggers the correct error message.</li>
+            <li>Confirm that only users with the “HR_Admin” role can create or modify profiles.</li>
+            <li>Check that the profile data is encrypted at rest and included in the audit log.</li>
+        </ul>
+    </li>
+    <li><strong>Technical Feasibility – Surface constraints early.</strong> Document integration points (e.g., sync with central LDAP, FHIR Practitioner resource), security requirements (role‑based access control, data‑at‑rest encryption), and performance expectations (max 2 seconds to load a profile). This will help developers size the effort accurately.</li>
+</ul>
+
+<p class="summary">By addressing the points above, the story will become a clear, testable, and value‑driven backlog item that aligns with healthcare regulatory expectations and reduces rework during sprint execution.</p>
+
+</body>
+</html>
